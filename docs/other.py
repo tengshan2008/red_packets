@@ -16,9 +16,9 @@ def run():
         novels = get_all_novel_links(browser)
         # process each novel
         for novel in novels:
-            novel_id = get_novel_id(browser, novel)
-            title = get_novel_title(browser, novel)
-            content = get_novel_content(browser, novel)
+            novel_id = get_novel_id(browser, novel.h3.a['href'])
+            title = get_novel_title(browser, novel.h3)
+            content = get_novel_content(browser, novel.h3)
             output(novel_id, title, content)
         browser.open(next_page(browser))
 
@@ -27,8 +27,8 @@ def get_all_novel_links(browser):
     get all novel link
     return links list [link1, link2, link3]
     """
-    browser.select('')
-    pass
+    return browser.select('.tal')[4:]
+
 
 def next_page(browser):
     """
@@ -53,13 +53,13 @@ def get_novel_id(browser, novel):
     """
     return novel's id for drop duplicates
     """
-    pass
+    return novel[15:20]
 
 def get_novel_title(browser, novel):
     """
     return novel's title
     """
-    pass
+    return novel.text
 
 def get_novel_content(browser, novel):
     """
